@@ -225,39 +225,39 @@ public extension InfoDictionaryKey where Value == String {
 // MARK: - Typed non-string values
 public extension InfoDictionaryKey where Value == Bool {
     /// A Boolean value indicating whether the app must run in iOS.
-    static let requiresIPhoneOS: Self = .init("LSRequiresIPhoneOS")
+    static let requiresIPhoneOS: Self = "LSRequiresIPhoneOS"
 
     /// A Boolean value that indicates whether the bundle is a watchOS app.
-    static let watchKitApp: Self = .init("WKWatchKitApp")
+    static let watchKitApp: Self = "WKWatchKitApp"
 
     /// A Boolean value that indicates whether the bundle supports retrieving localized strings from frameworks.
-    static let allowsMixedLocalizations: Self = .init("CFBundleAllowMixedLocalizations")
+    static let allowsMixedLocalizations: Self = "CFBundleAllowMixedLocalizations"
 
     /// A Boolean value that indicates whether a widget uses the user’s location information.
-    static let widgetWantsLocation: Self = .init("NSWidgetWantsLocation")
+    static let widgetWantsLocation: Self = "NSWidgetWantsLocation"
 
     /// A Boolean value that indicates whether the app requests reduced location accuracy by default.
-    static let locationDefaultAccuracyReduced: Self = .init("NSLocationDefaultAccuracyReduced")
+    static let locationDefaultAccuracyReduced: Self = "NSLocationDefaultAccuracyReduced"
 
     /// A Boolean value that indicates whether the app requires a Wi-Fi connection.
-    static let requiresPersistentWiFi: Self = .init("UIRequiresPersistentWiFi")
+    static let requiresPersistentWiFi: Self = "UIRequiresPersistentWiFi"
 
     /// A Boolean value indicating whether AppleScript is enabled.
-    static let appleScriptEnabled: Self = .init("NSAppleScriptEnabled")
+    static let appleScriptEnabled: Self = "NSAppleScriptEnabled"
 
     /// A Boolean value indicating whether the app uses encryption.
-    static let usesNonExemptEncryption: Self = .init("ITSAppUsesNonExemptEncryption")
+    static let usesNonExemptEncryption: Self = "ITSAppUsesNonExemptEncryption"
 }
 
 public extension InfoDictionaryKey where Value == [String] {
     /// The localizations handled manually by your app.
-    static let localizations: Self = .init("CFBundleLocalizations")
+    static let localizations: Self = "CFBundleLocalizations"
 }
 
 public extension InfoDictionaryKey where Value == [String: Any] {
     /// A collection of messages that explain why the app requests temporary access to location.
-    static let locationTemporaryUsageDescriptionDictionary: Self = .init("NSLocationTemporaryUsageDescriptionDictionary")
+    static let locationTemporaryUsageDescriptionDictionary: Self = "NSLocationTemporaryUsageDescriptionDictionary"
 
     /// A dictionary that includes keys for the specific SensorKit information your app collects.
-    static let sensorKitUsageDetail: Self = .init("NSSensorKitUsageDetail")
+    static let sensorKitUsageDetail: Self = "NSSensorKitUsageDetail"
 }

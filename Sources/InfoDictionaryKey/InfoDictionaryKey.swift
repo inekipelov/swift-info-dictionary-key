@@ -11,19 +11,19 @@ public struct InfoDictionaryKey<Value>: Hashable, Sendable {
     }
 }
 
-extension InfoDictionaryKey: ExpressibleByUnicodeScalarLiteral where Value == String {
+extension InfoDictionaryKey: ExpressibleByUnicodeScalarLiteral {
     public init(unicodeScalarLiteral value: String) {
         self.name = value
     }
 }
 
-extension InfoDictionaryKey: ExpressibleByExtendedGraphemeClusterLiteral where Value == String {
+extension InfoDictionaryKey: ExpressibleByExtendedGraphemeClusterLiteral {
     public init(extendedGraphemeClusterLiteral value: String) {
         self.name = value
     }
 }
 
-extension InfoDictionaryKey: ExpressibleByStringLiteral where Value == String {
+extension InfoDictionaryKey: ExpressibleByStringLiteral {
     public init(stringLiteral value: String) {
         self.name = value
     }

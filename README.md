@@ -42,16 +42,6 @@ import InfoDictionaryKeys
 
 let appName = try Bundle.main.string(for: .appName)
 let bundleIdentifier = try Bundle.main.string(for: .identifier)
-
-let displayName = Bundle.main.value(
-    for: InfoDictionaryKey<String>("CFBundleDisplayName"),
-    default: "My App"
-)
-
-do {
-    let buildNumber = try Bundle.main.string(for: .version)
-    print(buildNumber)
-} catch {
-    print(error.localizedDescription)
-}
+let displayName = Bundle.main.value(for: "CFBundleDisplayName", default: "My App")
+let requiresIPhoneOS = Bundle.main.value(for: "LSRequiresIPhoneOS", default: false)
 ```
