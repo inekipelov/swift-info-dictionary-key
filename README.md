@@ -44,4 +44,6 @@ let appName = try Bundle.main.string(for: .appName)
 let bundleIdentifier = try Bundle.main.string(for: .identifier)
 let displayName = Bundle.main.value(for: "CFBundleDisplayName", default: "My App")
 let requiresIPhoneOS = Bundle.main.value(for: "LSRequiresIPhoneOS", default: false)
+let temporaryLocationReason = try Bundle.main.dictionary(for: .locationTemporaryUsageDescriptionDictionary)
+let rawValue = try Bundle.main.plistValue(for: "NSLocationTemporaryUsageDescriptionDictionary")
 ```

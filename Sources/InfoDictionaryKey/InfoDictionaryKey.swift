@@ -1,7 +1,7 @@
 import Foundation
 
 /// Strongly-typed key for values stored in Info.plist.
-public struct InfoDictionaryKey<Value>: Hashable, Sendable {
+public struct InfoDictionaryKey<Value: InfoDictionaryKeysValue>: Hashable, Sendable {
     /// Underlying plist key string.
     public let name: String
 

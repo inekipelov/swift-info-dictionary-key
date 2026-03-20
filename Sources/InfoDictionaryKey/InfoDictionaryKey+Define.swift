@@ -254,7 +254,7 @@ public extension InfoDictionaryKey where Value == [String] {
     static let localizations: Self = "CFBundleLocalizations"
 }
 
-public extension InfoDictionaryKey where Value == [String: Any] {
+public extension InfoDictionaryKey where Value == [String: InfoPlistValue] {
     /// A collection of messages that explain why the app requests temporary access to location.
     static let locationTemporaryUsageDescriptionDictionary: Self = "NSLocationTemporaryUsageDescriptionDictionary"
 

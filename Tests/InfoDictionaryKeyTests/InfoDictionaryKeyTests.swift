@@ -4,6 +4,29 @@ import Testing
 
 @Suite("InfoDictionaryKey")
 struct InfoDictionaryKeyTests {
+    @Test("InfoPlistValue supports scalar and collection literals")
+    func infoPlistValueSupportsLiterals() {
+        let stringValue: InfoPlistValue = "hello"
+        let boolValue: InfoPlistValue = true
+        let integerValue: InfoPlistValue = 3
+        let doubleValue: InfoPlistValue = 3.5
+        let arrayValue: InfoPlistValue = ["alpha", true, 1]
+        let dictionaryValue: InfoPlistValue = ["name": "demo", "enabled": true, "count": 2]
+
+        #expect(stringValue == .string("hello"))
+        #expect(boolValue == .bool(true))
+        #expect(integerValue == .integer(3))
+        #expect(doubleValue == .double(3.5))
+        #expect(arrayValue == .array([.string("alpha"), .bool(true), .integer(1)]))
+        #expect(
+            dictionaryValue == .dictionary([
+                "name": .string("demo"),
+                "enabled": .bool(true),
+                "count": .integer(2),
+            ])
+        )
+    }
+
     @Test("Reads a known string key from a fixture bundle")
     func readsKnownStringValue() throws {
         let bundle = try #require(fixtureBundle())
@@ -37,11 +60,34 @@ struct InfoDictionaryKeyTests {
     func readsKnownDictionaryValue() throws {
         let bundle = try #require(fixtureBundle())
 
-        let key: InfoDictionaryKey<[String: Any]> = "FixtureDictionary"
+        let key: InfoDictionaryKey<[String: InfoPlistValue]> = "FixtureDictionary"
         let value = try bundle.dictionary(for: key)
 
-        #expect(value["first"] as? String == "one")
-        #expect(value["second"] as? String == "two")
+        #expect(value["first"] == .string("one"))
+        #expect(value["second"] == .string("two"))
+        #expect(value["flag"] == .bool(true))
+        #expect(
+            value["nested"] == .dictionary([
+                "count": .integer(7),
+                "ratio": .double(1.5),
+            ])
+        )
+    }
+
+    @Test("Reads a heterogeneous plist value from a fixture bundle")
+    func readsKnownPlistValue() throws {
+        let bundle = try #require(fixtureBundle())
+
+        let key: InfoDictionaryKey<InfoPlistValue> = "FixtureValueTree"
+        let value = try bundle.plistValue(for: key)
+
+        #expect(
+            value == .dictionary([
+                "enabled": .bool(true),
+                "items": .array([.string("alpha"), .integer(2)]),
+                "title": .string("demo"),
+            ])
+        )
     }
 
     @Test("Throws missingKey when a key is absent")
@@ -102,10 +148,12 @@ struct InfoDictionaryKeyTests {
         let boolValue = bundle.bool(for: "MissingBoolean", default: false)
         let arrayValue = bundle.array(for: "MissingArray", default: ["fallback"])
         let dictionaryValue = bundle.dictionary(for: "MissingDictionary", default: ["fallback": "value"])
+        let plistValue = bundle.plistValue(for: "MissingValueTree", default: ["enabled": true, "count": 2])
 
         #expect(boolValue == false)
         #expect(arrayValue == ["fallback"])
-        #expect(dictionaryValue["fallback"] as? String == "value")
+        #expect(dictionaryValue["fallback"] == .string("value"))
+        #expect(plistValue == .dictionary(["enabled": .bool(true), "count": .integer(2)]))
     }
 
     @Test("Typed sugar still throws on type mismatch")
@@ -114,7 +162,8 @@ struct InfoDictionaryKeyTests {
 
         let boolKey: InfoDictionaryKey<Bool> = "FixtureString"
         let arrayKey: InfoDictionaryKey<[String]> = "FixtureBoolean"
-        let dictionaryKey: InfoDictionaryKey<[String: Any]> = "FixtureStringArray"
+        let dictionaryKey: InfoDictionaryKey<[String: InfoPlistValue]> = "FixtureStringArray"
+        let plistKey: InfoDictionaryKey<InfoPlistValue> = "MissingKey"
 
         #expect(throws: InfoDictionaryError.self) {
             try bundle.bool(for: boolKey)
@@ -124,6 +173,9 @@ struct InfoDictionaryKeyTests {
         }
         #expect(throws: InfoDictionaryError.self) {
             try bundle.dictionary(for: dictionaryKey)
+        }
+        #expect(throws: InfoDictionaryError.self) {
+            try bundle.plistValue(for: plistKey)
         }
     }
 
@@ -136,7 +188,7 @@ struct InfoDictionaryKeyTests {
         #expect(InfoDictionaryKey<Bool>.requiresIPhoneOS.name == "LSRequiresIPhoneOS")
         #expect(InfoDictionaryKey<[String]>.localizations.name == "CFBundleLocalizations")
         #expect(
-            InfoDictionaryKey<[String: Any]>.locationTemporaryUsageDescriptionDictionary.name
+            InfoDictionaryKey<[String: InfoPlistValue]>.locationTemporaryUsageDescriptionDictionary.name
                 == "NSLocationTemporaryUsageDescriptionDictionary"
         )
         #expect(
@@ -173,6 +225,7 @@ struct InfoDictionaryKeyTests {
         #expect(defineFile.contains("NSRemindersUsageDescription") == false)
         #expect(defineFile.contains("NSFilesAndFoldersUsageDescription") == false)
         #expect(defineFile.contains("NSExtensionUsageDescription") == false)
+        #expect(readme.contains("[String: Any]") == false)
         #expect(readme.contains("NSCalendarsUsageDescription") == false)
         #expect(readme.contains("NSRemindersUsageDescription") == false)
     }

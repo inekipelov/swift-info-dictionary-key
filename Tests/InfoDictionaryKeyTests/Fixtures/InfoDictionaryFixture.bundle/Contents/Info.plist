@@ -12,9 +12,20 @@
     <dict>
         <key>first</key>
         <string>one</string>
+        <key>flag</key>
+        <true/>
+        <key>nested</key>
+        <dict>
+            <key>count</key>
+            <integer>7</integer>
+            <key>ratio</key>
+            <real>1.5</real>
+        </dict>
         <key>second</key>
         <string>two</string>
     </dict>
+    <key>FixtureDouble</key>
+    <real>3.5</real>
     <key>FixtureNumber</key>
     <integer>42</integer>
     <key>FixtureStringArray</key>
@@ -24,5 +35,17 @@
     </array>
     <key>FixtureString</key>
     <string>hello-fixture</string>
+    <key>FixtureValueTree</key>
+    <dict>
+        <key>enabled</key>
+        <true/>
+        <key>items</key>
+        <array>
+            <string>alpha</string>
+            <integer>2</integer>
+        </array>
+        <key>title</key>
+        <string>demo</string>
+    </dict>
 </dict>
 </plist>
