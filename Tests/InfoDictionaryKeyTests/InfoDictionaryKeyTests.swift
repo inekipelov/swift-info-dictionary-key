@@ -17,9 +17,31 @@ struct InfoDictionaryKeyTests {
     func readsKnownTypedValue() throws {
         let bundle = try #require(fixtureBundle())
 
-        let value = try bundle.value(for: InfoDictionaryKey<Bool>.init("FixtureBoolean"))
+        let key: InfoDictionaryKey<Bool> = "FixtureBoolean"
+        let value = try bundle.bool(for: key)
 
         #expect(value == true)
+    }
+
+    @Test("Reads a string array from a fixture bundle")
+    func readsKnownArrayValue() throws {
+        let bundle = try #require(fixtureBundle())
+
+        let key: InfoDictionaryKey<[String]> = "FixtureStringArray"
+        let value = try bundle.array(for: key)
+
+        #expect(value == ["alpha", "beta"])
+    }
+
+    @Test("Reads a dictionary from a fixture bundle")
+    func readsKnownDictionaryValue() throws {
+        let bundle = try #require(fixtureBundle())
+
+        let key: InfoDictionaryKey<[String: Any]> = "FixtureDictionary"
+        let value = try bundle.dictionary(for: key)
+
+        #expect(value["first"] as? String == "one")
+        #expect(value["second"] as? String == "two")
     }
 
     @Test("Throws missingKey when a key is absent")
@@ -73,6 +95,38 @@ struct InfoDictionaryKeyTests {
         #expect(value == "fallback")
     }
 
+    @Test("Returns typed fallback values when keys are missing")
+    func returnsTypedDefaultsForMissingKeys() throws {
+        let bundle = try #require(fixtureBundle())
+
+        let boolValue = bundle.bool(for: "MissingBoolean", default: false)
+        let arrayValue = bundle.array(for: "MissingArray", default: ["fallback"])
+        let dictionaryValue = bundle.dictionary(for: "MissingDictionary", default: ["fallback": "value"])
+
+        #expect(boolValue == false)
+        #expect(arrayValue == ["fallback"])
+        #expect(dictionaryValue["fallback"] as? String == "value")
+    }
+
+    @Test("Typed sugar still throws on type mismatch")
+    func typedSugarThrowsOnMismatch() throws {
+        let bundle = try #require(fixtureBundle())
+
+        let boolKey: InfoDictionaryKey<Bool> = "FixtureString"
+        let arrayKey: InfoDictionaryKey<[String]> = "FixtureBoolean"
+        let dictionaryKey: InfoDictionaryKey<[String: Any]> = "FixtureStringArray"
+
+        #expect(throws: InfoDictionaryError.self) {
+            try bundle.bool(for: boolKey)
+        }
+        #expect(throws: InfoDictionaryError.self) {
+            try bundle.array(for: arrayKey)
+        }
+        #expect(throws: InfoDictionaryError.self) {
+            try bundle.dictionary(for: dictionaryKey)
+        }
+    }
+
     @Test("Predefined keys expose the expected raw key names")
     func predefinedKeysUseExpectedNames() {
         #expect(InfoDictionaryKey<String>.appName.name == "CFBundleName")
@@ -94,8 +148,10 @@ struct InfoDictionaryKeyTests {
     @Test("String literal keys use the literal value as the raw key name")
     func stringLiteralInitializesKeyName() {
         let key: InfoDictionaryKey<String> = "FixtureString"
+        let boolKey: InfoDictionaryKey<Bool> = "FixtureBoolean"
 
         #expect(key.name == "FixtureString")
+        #expect(boolKey.name == "FixtureBoolean")
     }
 
     @Test("Deprecated aliases are removed from the catalog source and README")

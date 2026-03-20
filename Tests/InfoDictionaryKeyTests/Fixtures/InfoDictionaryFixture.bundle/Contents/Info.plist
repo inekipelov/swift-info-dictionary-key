@@ -8,8 +8,20 @@
     <string>FixtureBundle</string>
     <key>FixtureBoolean</key>
     <true/>
+    <key>FixtureDictionary</key>
+    <dict>
+        <key>first</key>
+        <string>one</string>
+        <key>second</key>
+        <string>two</string>
+    </dict>
     <key>FixtureNumber</key>
     <integer>42</integer>
+    <key>FixtureStringArray</key>
+    <array>
+        <string>alpha</string>
+        <string>beta</string>
+    </array>
     <key>FixtureString</key>
     <string>hello-fixture</string>
 </dict>
