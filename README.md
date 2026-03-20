@@ -15,25 +15,6 @@ typed errors for missing or mismatched values.
   <a href="https://developer.apple.com/visionos/"><img src="https://img.shields.io/badge/visionOS-1.0+-000000?logo=apple" alt="visionOS 1.0+"></a>
 </p>
 
-## Installation
-
-Add the package to your `Package.swift` dependencies:
-
-```swift
-.package(url: "https://github.com/inekipelov/swift-info-dictionary-key.git", from: "0.1.0")
-```
-
-Then add `InfoDictionaryKeys` to your target dependencies:
-
-```swift
-.target(
-    name: "YourTarget",
-    dependencies: [
-        "InfoDictionaryKeys"
-    ]
-)
-```
-
 ## Usage
 
 ```swift
@@ -46,4 +27,12 @@ let displayName = Bundle.main.value(for: "CFBundleDisplayName", default: "My App
 let requiresIPhoneOS = Bundle.main.value(for: "LSRequiresIPhoneOS", default: false)
 let temporaryLocationReason = try Bundle.main.dictionary(for: .locationTemporaryUsageDescriptionDictionary)
 let rawValue = try Bundle.main.plistValue(for: "NSLocationTemporaryUsageDescriptionDictionary")
+```
+
+## Installation
+
+Add the package to your `Package.swift` dependencies:
+
+```swift
+.package(url: "https://github.com/inekipelov/swift-info-dictionary-key.git", from: "0.1.0")
 ```
