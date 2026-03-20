@@ -6,8 +6,6 @@ for `Bundle` Info.plist values.
 It helps you replace stringly-typed Info.plist reads with a tiny typed API and
 typed errors for missing or mismatched values.
 
-Current release: `0.1.0`
-
 <p align="center">
   <a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-6.0+-F05138?logo=swift&logoColor=white" alt="Swift 6.0+"></a>
   <a href="https://developer.apple.com"><img src="https://img.shields.io/badge/iOS-13.0+-000000?logo=apple" alt="iOS 13.0+"></a>
@@ -22,7 +20,7 @@ Current release: `0.1.0`
 Add the package to your `Package.swift` dependencies:
 
 ```swift
-.package(url: "https://github.com/inekipelov/swift-info-dictionary-key.git", branch: "main")
+.package(url: "https://github.com/inekipelov/swift-info-dictionary-key.git", from: "0.1.0")
 ```
 
 Then add `InfoDictionaryKeys` to your target dependencies:
