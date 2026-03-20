@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleIdentifier</key>
+    <string>com.example.fixture</string>
+    <key>CFBundleName</key>
+    <string>FixtureBundle</string>
+    <key>FixtureBoolean</key>
+    <true/>
+    <key>FixtureDictionary</key>
+    <dict>
+        <key>first</key>
+        <string>one</string>
+        <key>flag</key>
+        <true/>
+        <key>nested</key>
+        <dict>
+            <key>count</key>
+            <integer>7</integer>
+            <key>ratio</key>
+            <real>1.5</real>
+        </dict>
+        <key>second</key>
+        <string>two</string>
+    </dict>
+    <key>FixtureDouble</key>
+    <real>3.5</real>
+    <key>FixtureNumber</key>
+    <integer>42</integer>
+    <key>FixtureStringArray</key>
+    <array>
+        <string>alpha</string>
+        <string>beta</string>
+    </array>
+    <key>FixtureString</key>
+    <string>hello-fixture</string>
+    <key>FixtureValueTree</key>
+    <dict>
+        <key>enabled</key>
+        <true/>
+        <key>items</key>
+        <array>
+            <string>alpha</string>
+            <integer>2</integer>
+        </array>
+        <key>title</key>
+        <string>demo</string>
+    </dict>
+</dict>
+</plist>
