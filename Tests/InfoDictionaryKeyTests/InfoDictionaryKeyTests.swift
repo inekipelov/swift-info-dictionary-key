@@ -77,7 +77,18 @@ struct InfoDictionaryKeyTests {
     func predefinedKeysUseExpectedNames() {
         #expect(InfoDictionaryKey<String>.appName.name == "CFBundleName")
         #expect(InfoDictionaryKey<String>.identifier.name == "CFBundleIdentifier")
+        #expect(InfoDictionaryKey<String>.displayName.name == "CFBundleDisplayName")
         #expect(InfoDictionaryKey<String>.cameraUsageDescription.name == "NSCameraUsageDescription")
+        #expect(InfoDictionaryKey<Bool>.requiresIPhoneOS.name == "LSRequiresIPhoneOS")
+        #expect(InfoDictionaryKey<[String]>.localizations.name == "CFBundleLocalizations")
+        #expect(
+            InfoDictionaryKey<[String: Any]>.locationTemporaryUsageDescriptionDictionary.name
+                == "NSLocationTemporaryUsageDescriptionDictionary"
+        )
+        #expect(
+            InfoDictionaryKey<String>.systemExtensionUsageDescription.name
+                == "NSSystemExtensionUsageDescription"
+        )
     }
 
     @Test("String literal keys use the literal value as the raw key name")
@@ -85,6 +96,29 @@ struct InfoDictionaryKeyTests {
         let key: InfoDictionaryKey<String> = "FixtureString"
 
         #expect(key.name == "FixtureString")
+    }
+
+    @Test("Deprecated aliases are removed from the catalog source and README")
+    func deprecatedAliasesAreRemoved() throws {
+        let packageRoot = URL(filePath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let defineFileURL = packageRoot
+            .appending(path: "Sources")
+            .appending(path: "InfoDictionaryKey")
+            .appending(path: "InfoDictionaryKey+Define.swift")
+        let readmeURL = packageRoot.appending(path: "README.md")
+
+        let defineFile = try String(contentsOf: defineFileURL, encoding: .utf8)
+        let readme = try String(contentsOf: readmeURL, encoding: .utf8)
+
+        #expect(defineFile.contains("NSCalendarsUsageDescription") == false)
+        #expect(defineFile.contains("NSRemindersUsageDescription") == false)
+        #expect(defineFile.contains("NSFilesAndFoldersUsageDescription") == false)
+        #expect(defineFile.contains("NSExtensionUsageDescription") == false)
+        #expect(readme.contains("NSCalendarsUsageDescription") == false)
+        #expect(readme.contains("NSRemindersUsageDescription") == false)
     }
 
     private func fixtureBundle() -> Bundle? {
