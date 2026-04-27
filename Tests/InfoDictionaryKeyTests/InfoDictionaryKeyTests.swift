@@ -200,8 +200,18 @@ struct InfoDictionaryKeyTests {
         #expect(InfoDictionaryKey<String>.userInterfaceStyle.name == "UIUserInterfaceStyle")
         #expect(InfoDictionaryKey<String>.whitePointAdaptivityStyle.name == "UIWhitePointAdaptivityStyle")
         #expect(InfoDictionaryKey<Bool>.requiresIPhoneOS.name == "LSRequiresIPhoneOS")
-        #expect(InfoDictionaryKey<Bool>.designRequiresCompatibility.name == "UIDesignRequiresCompatibility")
-        #expect(InfoDictionaryKey<Bool>.supportsAssistiveAccess.name == "UISupportsAssistiveAccess")
+        if #available(iOS 26.0, macCatalyst 26.0, macOS 26.0, tvOS 26.0, *) {
+            #expect(InfoDictionaryKey<Bool>.designRequiresCompatibility.name == "UIDesignRequiresCompatibility")
+        }
+        if #available(iOS 26.0, macCatalyst 26.0, *) {
+            #expect(InfoDictionaryKey<Bool>.supportsAssistiveAccess.name == "UISupportsAssistiveAccess")
+        }
+        if #available(iOS 17.0, macCatalyst 17.0, *) {
+            #expect(
+                InfoDictionaryKey<Bool>.supportsFullScreenInAssistiveAccess.name
+                    == "UISupportsFullScreenInAssistiveAccess"
+            )
+        }
         #expect(
             InfoDictionaryKey<Bool>.prefersDisplaySafeAreaCompatibilityMode.name
                 == "NSPrefersDisplaySafeAreaCompatibilityMode"

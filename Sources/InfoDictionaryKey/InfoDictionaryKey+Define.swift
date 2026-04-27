@@ -75,6 +75,7 @@ public extension InfoDictionaryKey where Value == String {
     static let whitePointAdaptivityStyle: Self = "UIWhitePointAdaptivityStyle"
 
     /// A string value that specifies a system version after which the system ignores the requires full screen key.
+    @available(iOS 26.2, macCatalyst 26.2, *)
     static let requiresFullScreenIgnoredStartingWithVersion: Self = "UIRequiresFullScreenIgnoredStartingWithVersion"
 
     /// The name of a color in an asset catalog to use for a target’s global accent color.
@@ -246,6 +247,7 @@ public extension InfoDictionaryKey where Value == Bool {
     static let requiresIPhoneOS: Self = "LSRequiresIPhoneOS"
 
     /// A Boolean value that indicates whether the system runs the app using a compatibility mode for UI.
+    @available(iOS 26.0, macCatalyst 26.0, macOS 26.0, tvOS 26.0, *)
     static let designRequiresCompatibility: Self = "UIDesignRequiresCompatibility"
 
     /// A Boolean value that indicates whether Core Animation layers use antialiasing when drawing a layer that isn’t aligned to pixel boundaries.
@@ -255,12 +257,15 @@ public extension InfoDictionaryKey where Value == Bool {
     static let viewGroupOpacity: Self = "UIViewGroupOpacity"
 
     /// A Boolean value that indicates whether an iOS or iPadOS app supports Assistive Access.
+    @available(iOS 26.0, macCatalyst 26.0, *)
     static let supportsAssistiveAccess: Self = "UISupportsAssistiveAccess"
 
     /// A Boolean value that indicates whether an iOS or iPadOS app appears as full screen in Assistive Access.
+    @available(iOS 17.0, macCatalyst 17.0, *)
     static let supportsFullScreenInAssistiveAccess: Self = "UISupportsFullScreenInAssistiveAccess"
 
     /// A Boolean value that indicates whether the app prefers to run in compatibility mode when necessary.
+    @available(macOS 12.0, *)
     static let prefersDisplaySafeAreaCompatibilityMode: Self = "NSPrefersDisplaySafeAreaCompatibilityMode"
 
     /// A Boolean value that indicates whether the bundle is a watchOS app.
