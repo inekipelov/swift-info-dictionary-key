@@ -46,6 +46,17 @@ struct InfoDictionaryKeyTests {
         #expect(value == true)
     }
 
+    @Test("Reads styling keys from a fixture bundle")
+    func readsStylingValues() throws {
+        let bundle = try #require(fixtureBundle())
+
+        let userInterfaceStyle = try bundle.value(for: .userInterfaceStyle)
+        let whitePointStyle = try bundle.value(for: .whitePointAdaptivityStyle)
+
+        #expect(userInterfaceStyle == "Dark")
+        #expect(whitePointStyle == "UIWhitePointAdaptivityStylePhoto")
+    }
+
     @Test("Reads a string array from a fixture bundle")
     func readsKnownArrayValue() throws {
         let bundle = try #require(fixtureBundle())
@@ -185,7 +196,16 @@ struct InfoDictionaryKeyTests {
         #expect(InfoDictionaryKey<String>.identifier.name == "CFBundleIdentifier")
         #expect(InfoDictionaryKey<String>.displayName.name == "CFBundleDisplayName")
         #expect(InfoDictionaryKey<String>.cameraUsageDescription.name == "NSCameraUsageDescription")
+        #expect(InfoDictionaryKey<String>.accentColorName.name == "NSAccentColorName")
+        #expect(InfoDictionaryKey<String>.userInterfaceStyle.name == "UIUserInterfaceStyle")
+        #expect(InfoDictionaryKey<String>.whitePointAdaptivityStyle.name == "UIWhitePointAdaptivityStyle")
         #expect(InfoDictionaryKey<Bool>.requiresIPhoneOS.name == "LSRequiresIPhoneOS")
+        #expect(InfoDictionaryKey<Bool>.designRequiresCompatibility.name == "UIDesignRequiresCompatibility")
+        #expect(InfoDictionaryKey<Bool>.supportsAssistiveAccess.name == "UISupportsAssistiveAccess")
+        #expect(
+            InfoDictionaryKey<Bool>.prefersDisplaySafeAreaCompatibilityMode.name
+                == "NSPrefersDisplaySafeAreaCompatibilityMode"
+        )
         #expect(InfoDictionaryKey<[String]>.localizations.name == "CFBundleLocalizations")
         #expect(
             InfoDictionaryKey<[String: InfoPlistValue]>.locationTemporaryUsageDescriptionDictionary.name
