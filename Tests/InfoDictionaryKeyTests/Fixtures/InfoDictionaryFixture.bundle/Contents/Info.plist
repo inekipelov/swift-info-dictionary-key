@@ -8,6 +8,10 @@
     <string>FixtureBundle</string>
     <key>FixtureBoolean</key>
     <true/>
+    <key>UIUserInterfaceStyle</key>
+    <string>Dark</string>
+    <key>UIWhitePointAdaptivityStyle</key>
+    <string>UIWhitePointAdaptivityStylePhoto</string>
     <key>FixtureDictionary</key>
     <dict>
         <key>first</key>
